@@ -1,5 +1,4 @@
 import java.io.File
-import java.io.FileNotFoundException
 import java.lang.Exception
 
 /*
@@ -8,6 +7,20 @@ import java.lang.Exception
     Matrícula: 11621BCC013
  */
 
+fun converteStringParaLista(dados: String?): MutableList<Double> {
+    if (dados == null || dados.isEmpty() || dados.equals(" ")){
+        throw Exception("(O arquivo está vazio)")
+    }else{
+        val l = splitLineBySeparator(dados,",")
+        val lista: MutableList<Double> = mutableListOf()
+        l.forEach { dado ->
+            lista.add(dado.toDouble())
+        }
+        lista.sort()
+        return lista
+    }
+}
+
 fun lerEntrada(path: String): String? {
     try {
         return File(path).bufferedReader().readLine()
@@ -15,5 +28,13 @@ fun lerEntrada(path: String): String? {
         throw Exception(e.message.toString())
     }
 }
+
+fun splitLineBySeparator(line: String, separator: String): MutableList<String> {
+    val list: List<String> = line.split(separator).map {
+        it.trim()
+    }
+    return list.toMutableList()
+}
+
 
 
