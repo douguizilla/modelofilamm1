@@ -1,5 +1,6 @@
 import java.io.File
 import java.lang.Exception
+import java.util.*
 
 /*
     Trabalho 1 - Modelo de fila M/M/1
@@ -16,9 +17,7 @@ fun inicializaDF(dados: MutableList<Double>) {
     val tabela: MutableList<DF> = mutableListOf()
     defineClasses(tabela,calculaNumeroClasses(dados),calculaAmplitudeClasses(dados))
     defineFrequencias(tabela, dados)
-    tabela.forEach {
-        println(it.toString())
-    }
+    tabela.imprimeTabela()
 }
 
 fun defineFrequencias(
@@ -151,6 +150,40 @@ fun lerEntrada(path: String): String? {
     }
 }
 
+//Funções de impressão na tela
+
+fun MutableList<DF>.imprimeTabela(){
+    println("Classes\t\t\tFA\t\tFR\t\tFRA\t\tPM\t\tIV")
+    this.forEach {
+        it.imprimeDF()
+        print("\n")
+    }
+    println("FA  - Frequência Absoluta | " +
+            "FR  - Frequência Relativa | " +
+            "FRA - Frequência Relativa Acumulada | " +
+            "PM  - Ponto Médio | " +
+            "IV  - Intervalo de Valores"
+    )
+}
+
+fun DF.imprimeDF() {
+    var inicio = this.classe?.inicio
+    var fim = this.classe?.fim
+
+    print(inicio!!.format() + " |- " + fim!!.format() + "\t")
+
+    print(this.freqAbsoluta.format() + "\t")
+    print(this.freqRelativa.format() + "\t")
+    print(this.freqRelativaAcumulada.format() + "\t")
+    print(this.pontoMedio.format() + "\t")
+
+    inicio = this.intervaloValores?.inicio
+    fim = this.intervaloValores?.fim
+
+    print(inicio!!.format() + " |- " + fim!!.format() + "\t")
+}
+
+fun Double.format() = String.format(Locale.US, "%2.2f", this)
 
 //Estruturas auxiliares
 
