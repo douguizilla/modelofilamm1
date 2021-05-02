@@ -13,7 +13,7 @@ fun main(){
         val path1 = ""
         val line = lerEntrada(path)
         val dados = converteStringParaLista(line)
-        println(dados.toString())
+        println(calculaAmplitudeClasses(dados).toString())
     }catch (e: Exception){
         println("Houve um erro...\nMotivo:${e.message.toString()}\nVerifique e tente novamente")
     }
