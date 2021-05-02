@@ -11,6 +11,8 @@ import java.lang.Exception
 
 //Distribuição de frequência
 
+    //construção da tabela de distribuição de frequência
+
 
 
     //funções baseadas na regra de Sturges
@@ -82,4 +84,17 @@ fun lerEntrada(path: String): String? {
 }
 
 
+//Estruturas auxiliares
 
+data class linhaDF( //linha da tabela de Distribuição de Frequência
+    val classe: Classe,
+    val freqAbsoluta: Double,
+    val freqAcumulada: Double,
+    val pontoMedio: Double,
+    val intervaloValores: Classe
+)
+
+data class Classe(
+    val inicio: Double,
+    val fim: Double
+)
