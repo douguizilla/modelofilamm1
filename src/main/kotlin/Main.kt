@@ -14,7 +14,6 @@ fun main(){
         val line = lerEntrada(path)
         val dados = converteStringParaLista(line)
         inicializaDF(dados)
-        println(dados.toString())
     }catch (e: Exception){
         println("Houve um erro...\nMotivo:${e.message.toString()}\nVerifique e tente novamente")
     }

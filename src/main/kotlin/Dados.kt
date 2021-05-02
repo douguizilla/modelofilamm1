@@ -14,15 +14,52 @@ import java.lang.Exception
 //construção da tabela de distribuição de frequência
 fun inicializaDF(dados: MutableList<Double>) {
     val tabela: MutableList<DF> = mutableListOf()
-    defineClasses(tabela,dados,calculaNumeroClasses(dados),calculaAmplitudeClasses(dados))
+    defineClasses(tabela,calculaNumeroClasses(dados),calculaAmplitudeClasses(dados))
+    defineFrequencias(tabela, dados)
     tabela.forEach {
         println(it.toString())
     }
 }
 
+fun defineFrequencias(
+    tabela: MutableList<DF>,
+    dados: MutableList<Double>
+){
+    var inicio = 0.0
+    var fim = 0.0
+    var i = 0
+    var j = 0
+    val tamanho = dados.size
+    var cont = tamanho
+    var soma = 0.0
+    while (cont-- > 0){
+        fim = tabela[i].classe!!.fim
+
+        if (dados[j] >= fim){
+            //atualização da frequencia relativa acumulada
+            tabela[i].freqRelativaAcumulada = soma + tabela[i].freqRelativa
+            soma = tabela[i].freqRelativaAcumulada
+
+            //atualização do intervalo de valores
+            tabela[i].intervaloValores = Classe(inicio, tabela[i].freqRelativaAcumulada)
+            inicio = tabela[i].freqRelativaAcumulada
+
+            i++
+        }
+
+        tabela[i].freqAbsoluta = tabela[i].freqAbsoluta + 1.0
+        tabela[i].freqRelativa = tabela[i].freqAbsoluta / tamanho
+
+
+        j++
+    }
+    //atualizando a ultima linha da tabela
+    tabela[i].freqRelativaAcumulada = soma + tabela[i].freqRelativa
+    tabela[i].intervaloValores = Classe(inicio,tabela[i].freqRelativaAcumulada)
+}
+
 fun defineClasses(
     tabela: MutableList<DF>,
-    dados: MutableList<Double>,
     numeroClasses: Int,
     amplitudeClasse: Int
 ) {
@@ -35,11 +72,12 @@ fun defineClasses(
             Classe(inicio, fim),
             0.0,
             0.0,
+            0.0,
             calculaPontoMedio(fim,inicio),
             null
             )
-        tabela.add(df)
-        inicio = fim + 0.1
+        tabela.add(df) //adiciona a linha a tabela
+        inicio = fim + 0.1 //incrementa o inicio para a próxima iteração
     }
 }
 
@@ -117,14 +155,15 @@ fun lerEntrada(path: String): String? {
 //Estruturas auxiliares
 
 data class DF( //linha da tabela de Distribuição de Frequência
-    val classe: Classe?,
-    val freqAbsoluta: Double,
-    val freqAcumulada: Double,
-    val pontoMedio: Double,
-    val intervaloValores: Classe?
+    var classe: Classe?,
+    var freqAbsoluta: Double,
+    var freqRelativa: Double,
+    var freqRelativaAcumulada: Double,
+    var pontoMedio: Double,
+    var intervaloValores: Classe?
 )
 
 data class Classe(
-    val inicio: Double,
-    val fim: Double
+    var inicio: Double,
+    var fim: Double
 )
