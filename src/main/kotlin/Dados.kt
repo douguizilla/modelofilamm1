@@ -11,11 +11,41 @@ import java.lang.Exception
 
 //Distribuição de frequência
 
-    //construção da tabela de distribuição de frequência
+//construção da tabela de distribuição de frequência
+fun inicializaDF(dados: MutableList<Double>) {
+    val tabela: MutableList<DF> = mutableListOf()
+    defineClasses(tabela,dados,calculaNumeroClasses(dados),calculaAmplitudeClasses(dados))
+    tabela.forEach {
+        println(it.toString())
+    }
+}
 
+fun defineClasses(
+    tabela: MutableList<DF>,
+    dados: MutableList<Double>,
+    numeroClasses: Int,
+    amplitudeClasse: Int
+) {
+    var cont = numeroClasses
+    var inicio = 0.0
+    var fim = 0.0
+    while (cont-- > 0){
+        fim = inicio + amplitudeClasse
+        val df = DF(
+            Classe(inicio, fim),
+            0.0,
+            0.0,
+            calculaPontoMedio(fim,inicio),
+            null
+            )
+        tabela.add(df)
+        inicio = fim + 0.1
+    }
+}
 
+fun calculaPontoMedio(fim: Double, inicio: Double) = (fim + inicio) / 2
 
-    //funções baseadas na regra de Sturges
+//funções baseadas na regra de Sturges
 
 fun calculaAmplitudeClasses(dados: MutableList<Double>): Int {
     val ac = calculaAmplitudeTotal(dados) / calculaNumeroClasses(dados)
@@ -48,7 +78,7 @@ fun calculaNumeroClasses(dados: MutableList<Double>): Int {
 
 fun calculaAmplitudeTotal(
     dados: MutableList<Double>
-) = dados[dados.size-1] - dados[0]
+) = dados[dados.size - 1] - dados[0]
 
 
 //Conversão dos dados lidos para uma estrutura de dados:
@@ -86,12 +116,12 @@ fun lerEntrada(path: String): String? {
 
 //Estruturas auxiliares
 
-data class linhaDF( //linha da tabela de Distribuição de Frequência
-    val classe: Classe,
+data class DF( //linha da tabela de Distribuição de Frequência
+    val classe: Classe?,
     val freqAbsoluta: Double,
     val freqAcumulada: Double,
     val pontoMedio: Double,
-    val intervaloValores: Classe
+    val intervaloValores: Classe?
 )
 
 data class Classe(
