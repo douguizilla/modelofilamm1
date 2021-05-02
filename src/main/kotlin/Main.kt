@@ -6,8 +6,10 @@
 import kotlin.random.Random
 
 fun main(){
-    for(i in 1..1000)
-        println(Random.nextDouble(0.0,1.0))
+    val path = "C:\\Users\\dougl\\Desktop\\UFU\\MS\\trabalhos\\trabalho1\\src\\main\\resources\\TEC.csv"
+    val path1 = ""
+    val line = lerEntrada(path)
+    println(line.toString())
 }
 
 fun menu(){
