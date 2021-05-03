@@ -15,8 +15,22 @@ import kotlin.random.Random
 
 //Criação da tabela com o TEC e TS para cada cliente
 
-fun criaTabelaClienteTecTS(quantidadeClientes: Int){
-
+fun criaTabelaClienteTecTS(
+    quantidadeClientes: Int,
+    tec: MutableList<DF>,
+    ts: MutableList<DF>
+): MutableList<ClienteTecTs> {
+    val tabelaTecTs: MutableList<ClienteTecTs> = mutableListOf()
+    for (cliente in 1..quantidadeClientes) {
+        tabelaTecTs.add(
+            ClienteTecTs(
+                cliente,
+                obtemTempoUsandoMMC(tec),
+                obtemTempoUsandoMMC(ts)
+            )
+        )
+    }
+    return tabelaTecTs
 }
 
 //Distribuição de frequência
@@ -222,4 +236,10 @@ data class DF( //linha da tabela de Distribuição de Frequência
 data class Classe(
     var inicio: Double,
     var fim: Double
+)
+
+data class ClienteTecTs(
+    val cliente: Int,
+    val tec: Double,
+    val ts: Double
 )
