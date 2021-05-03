@@ -1,8 +1,3 @@
-import java.io.File
-import java.lang.Exception
-import java.util.*
-import kotlin.random.Random
-
 /*
     Trabalho 1 - Modelo de fila M/M/1
     Aluno: Douglas Gomes de Paula
@@ -12,9 +7,19 @@ import kotlin.random.Random
             arquivo.csv com os dados em apenas na PRIMEIRA linha e transformará em uma tabela de distribuição
             de frequências.
  */
+import java.io.File
+import java.lang.Exception
+import java.util.*
+import kotlin.random.Random
+
+
+//Criação da tabela com o TEC e TS para cada cliente
+
+fun criaTabelaClienteTecTS(quantidadeClientes: Int){
+
+}
 
 //Distribuição de frequência
-
 
 fun obtemTempoUsandoMMC(tabela: MutableList<DF>): Double {
     val numeroAleatorioSorteado = Random.nextDouble(0.0, 1.0)
