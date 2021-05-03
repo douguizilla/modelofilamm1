@@ -12,27 +12,6 @@ import java.lang.Exception
 import java.util.*
 import kotlin.random.Random
 
-/* avaliar se pode remover
-//Criação da tabela com o TEC e TS para cada cliente
-
-fun criaTabelaClienteTecTS(
-    quantidadeClientes: Int,
-    tec: MutableList<DF>,
-    ts: MutableList<DF>
-): MutableList<ClienteTecTs> {
-    val tabelaTecTs: MutableList<ClienteTecTs> = mutableListOf()
-    for (cliente in 1..quantidadeClientes) {
-        tabelaTecTs.add(
-            ClienteTecTs(
-                cliente,
-                obtemTempoUsandoMMC(tec),
-                obtemTempoUsandoMMC(ts)
-            )
-        )
-    }
-    return tabelaTecTs
-}
-*/
 //Distribuição de frequência
 
 fun obtemTempoUsandoMMC(tabela: MutableList<DF>): Double {
@@ -237,9 +216,13 @@ data class Classe(
     var inicio: Double,
     var fim: Double
 )
-/* avaliar se pode remover
-data class ClienteTecTs(
+
+data class Simulacao(
+    val evento: String,
     val cliente: Int,
-    val tec: Double,
-    val ts: Double
-)*/
+    val TR: Double,
+    val ES: Int,
+    val TF: Int,
+    val HC: Double,
+    val HS: Double
+)
