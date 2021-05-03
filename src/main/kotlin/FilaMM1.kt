@@ -8,3 +8,9 @@
             de frequências.
  */
 
+// Algoritmo para processar um evento de chegada
+
+fun processarEventoChegada(){
+
+}
+

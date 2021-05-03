@@ -13,8 +13,13 @@ import java.util.*
 import kotlin.random.Random
 
 
-//Distribuição de frequência
+//Criação da tabela com o TEC e TS para cada cliente
 
+fun criaTabelaClienteTecTS(quantidadeClientes: Int){
+
+}
+
+//Distribuição de frequência
 
 fun obtemTempoUsandoMMC(tabela: MutableList<DF>): Double {
     val numeroAleatorioSorteado = Random.nextDouble(0.0, 1.0)
