@@ -12,7 +12,7 @@ import java.lang.Exception
 import java.util.*
 import kotlin.random.Random
 
-
+/* avaliar se pode remover
 //Criação da tabela com o TEC e TS para cada cliente
 
 fun criaTabelaClienteTecTS(
@@ -32,7 +32,7 @@ fun criaTabelaClienteTecTS(
     }
     return tabelaTecTs
 }
-
+*/
 //Distribuição de frequência
 
 fun obtemTempoUsandoMMC(tabela: MutableList<DF>): Double {
@@ -237,9 +237,9 @@ data class Classe(
     var inicio: Double,
     var fim: Double
 )
-
+/* avaliar se pode remover
 data class ClienteTecTs(
     val cliente: Int,
     val tec: Double,
     val ts: Double
-)
+)*/
