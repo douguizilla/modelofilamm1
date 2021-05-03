@@ -3,11 +3,24 @@
     Aluno: Douglas Gomes de Paula
     Matrícula: 11621BCC013
  */
-import kotlin.random.Random
+import java.lang.Exception
 
 fun main(){
-    for(i in 1..1000)
-        println(Random.nextDouble(0.0,1.0))
+    try {
+
+        val path = "C:\\Users\\dougl\\Desktop\\UFU\\MS\\trabalhos\\trabalho1\\src\\main\\resources\\TEC.csv"
+        val path1 = ""
+        val line = lerEntrada(path)
+        val dados = converteStringParaLista(line)
+        val TEC = criaTabelaDF(dados)
+        var valorTEC = 0.0
+        for (i in 1..100){
+            valorTEC = obtemTempoUsandoMMC(TEC)
+            println("Valor TEC $i: " + valorTEC.toString())
+        }
+    }catch (e: Exception){
+        println("Houve um erro...\nMotivo:${e.message.toString()}\nVerifique e tente novamente")
+    }
 }
 
 fun menu(){
