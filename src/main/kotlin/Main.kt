@@ -28,5 +28,11 @@ fun menu(){
 }
 
 fun showOptions() {
-    TODO("Mostrar as opções disponiveis para manipulação do sistema")
+    println("Modelo de fila M/M/1")
+    println("1 - Inserir base de dados TEC")
+    println("2 - Inserir base de dados TS")
+    println("3 - Simular sistema")
+    println("4 - Imprimir simulação do sistema")
+    println("5 - Ver relatório estatístico")
+
 }
