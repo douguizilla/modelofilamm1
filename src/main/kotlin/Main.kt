@@ -4,7 +4,6 @@
     Matrícula: 11621BCC013
  */
 import java.lang.Exception
-import kotlin.random.Random
 
 fun main(){
     try {
@@ -13,7 +12,12 @@ fun main(){
         val path1 = ""
         val line = lerEntrada(path)
         val dados = converteStringParaLista(line)
-        inicializaDF(dados)
+        val TEC = criaTabelaDF(dados)
+        var valorTEC = 0.0
+        for (i in 1..100){
+            valorTEC = obtemTempoUsandoMMC(TEC)
+            println("Valor TEC $i: " + valorTEC.toString())
+        }
     }catch (e: Exception){
         println("Houve um erro...\nMotivo:${e.message.toString()}\nVerifique e tente novamente")
     }

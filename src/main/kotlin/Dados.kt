@@ -1,6 +1,7 @@
 import java.io.File
 import java.lang.Exception
 import java.util.*
+import kotlin.random.Random
 
 /*
     Trabalho 1 - Modelo de fila M/M/1
@@ -14,18 +15,32 @@ import java.util.*
 
 //Distribuição de frequência
 
+
+fun obtemTempoUsandoMMC(tabela: MutableList<DF>): Double {
+    val numeroAleatorioSorteado = Random.nextDouble(0.0, 1.0)
+    var valorRetorno = 0.0
+    tabela.forEach { linha ->
+        if (numeroAleatorioSorteado >= linha.intervaloValores!!.inicio &&
+            numeroAleatorioSorteado < linha.intervaloValores!!.fim
+        ) {
+            valorRetorno = linha.pontoMedio
+        }
+    }
+    return valorRetorno
+}
+
 //construção da tabela de distribuição de frequência
-fun inicializaDF(dados: MutableList<Double>) {
+fun criaTabelaDF(dados: MutableList<Double>): MutableList<DF> {
     val tabela: MutableList<DF> = mutableListOf()
-    defineClasses(tabela,calculaNumeroClasses(dados),calculaAmplitudeClasses(dados))
+    defineClasses(tabela, calculaNumeroClasses(dados), calculaAmplitudeClasses(dados))
     defineFrequencias(tabela, dados)
-    tabela.imprimeTabela()
+    return tabela
 }
 
 fun defineFrequencias(
     tabela: MutableList<DF>,
     dados: MutableList<Double>
-){
+) {
     var inicio = 0.0
     var fim = 0.0
     var i = 0
@@ -33,10 +48,10 @@ fun defineFrequencias(
     val tamanho = dados.size
     var cont = tamanho
     var soma = 0.0
-    while (cont-- > 0){
+    while (cont-- > 0) {
         fim = tabela[i].classe!!.fim
 
-        if (dados[j] >= fim){
+        if (dados[j] >= fim) {
             //atualização da frequencia relativa acumulada
             tabela[i].freqRelativaAcumulada = soma + tabela[i].freqRelativa
             soma = tabela[i].freqRelativaAcumulada
@@ -56,7 +71,7 @@ fun defineFrequencias(
     }
     //atualizando a ultima linha da tabela
     tabela[i].freqRelativaAcumulada = soma + tabela[i].freqRelativa
-    tabela[i].intervaloValores = Classe(inicio,tabela[i].freqRelativaAcumulada)
+    tabela[i].intervaloValores = Classe(inicio, tabela[i].freqRelativaAcumulada)
 }
 
 fun defineClasses(
@@ -67,16 +82,16 @@ fun defineClasses(
     var cont = numeroClasses
     var inicio = 0.0
     var fim = 0.0
-    while (cont-- > 0){
+    while (cont-- > 0) {
         fim = inicio + amplitudeClasse
         val df = DF(
             Classe(inicio, fim),
             0.0,
             0.0,
             0.0,
-            calculaPontoMedio(fim,inicio),
+            calculaPontoMedio(fim, inicio),
             null
-            )
+        )
         tabela.add(df) //adiciona a linha a tabela
         inicio = fim + 0.1 //incrementa o inicio para a próxima iteração
     }
@@ -154,17 +169,18 @@ fun lerEntrada(path: String): String? {
 
 //Funções de impressão na tela
 
-fun MutableList<DF>.imprimeTabela(){
+fun MutableList<DF>.imprimeTabela() {
     println("Classes\t\t\tFA\t\tFR\t\tFRA\t\tPM\t\tIV")
     this.forEach {
         it.imprimeDF()
         print("\n")
     }
-    println("FA  - Frequência Absoluta | " +
-            "FR  - Frequência Relativa | " +
-            "FRA - Frequência Relativa Acumulada | " +
-            "PM  - Ponto Médio | " +
-            "IV  - Intervalo de Valores"
+    println(
+        "FA  - Frequência Absoluta | " +
+                "FR  - Frequência Relativa | " +
+                "FRA - Frequência Relativa Acumulada | " +
+                "PM  - Ponto Médio | " +
+                "IV  - Intervalo de Valores"
     )
 }
 
