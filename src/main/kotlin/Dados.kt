@@ -201,6 +201,19 @@ fun DF.imprimeDF() {
 
 fun Double.format() = String.format(Locale.US, "%2.2f", this)
 
+fun MutableList<Simulacao>.mostrarSimulacao(){
+    println("EVENTO\tCLIENTE\tTR\tES\tTF\tHC\tHS")
+    this.forEach {
+        println("${it.evento}\t" +
+                "${it.cliente}\t" +
+                "${it.TR}\t" +
+                "${it.ES}\t" +
+                "${it.TF}\t" +
+                "${it.HC}\t" +
+                "${it.HS}")
+    }
+}
+
 //Estruturas auxiliares
 
 data class DF( //linha da tabela de Distribuição de Frequência

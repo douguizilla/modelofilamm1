@@ -23,11 +23,11 @@ val tabelaSimulacao: MutableList<Simulacao> = mutableListOf()
 
 //processamento especificado com o caso de parada
 
-fun processarSimulacaoPorTempo(
+fun processarSimulacaoPorCliente(
     tabelaTEC: MutableList<DF>,
     tabelaTS: MutableList<DF>,
     limiteCliente: Int
-) {
+){
     while (cliente < limiteCliente) {
         processarSimulacao(tabelaTEC, tabelaTS)
     }
@@ -38,7 +38,7 @@ fun processarSimulacaoPorTempo(
     tabelaTEC: MutableList<DF>,
     tabelaTS: MutableList<DF>,
     tempo: Double
-) {
+){
     while (TR < tempo) {
         processarSimulacao(tabelaTEC, tabelaTS)
     }
@@ -163,4 +163,6 @@ fun processarEventoChegada(
     //Agendar a próxima chegada
     HC = TR + TEC
 }
+
+//imprimir simulação
 
