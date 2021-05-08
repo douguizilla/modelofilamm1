@@ -34,6 +34,18 @@ fun processarSimulacaoPorCliente(
     calcularImprimirEstatisticas()
 }
 
+fun processarSimulacaoPorCliente(
+    tabelaTEC: MutableList<DF>,
+    tabelaTS: MutableList<DF>,
+    limiteCliente: Int,
+    limiteFila: Int
+){
+    while (cliente < limiteCliente) {
+        processarSimulacao(tabelaTEC, tabelaTS, limiteFila)
+    }
+    calcularImprimirEstatisticas()
+}
+
 fun processarSimulacaoPorTempo(
     tabelaTEC: MutableList<DF>,
     tabelaTS: MutableList<DF>,
@@ -45,12 +57,22 @@ fun processarSimulacaoPorTempo(
     calcularImprimirEstatisticas()
 }
 
-
-//processamento geral
-
-fun processarSimulacao(
+fun processarSimulacaoPorTempo(
     tabelaTEC: MutableList<DF>,
     tabelaTS: MutableList<DF>,
+    tempo: Double,
+    limiteFila: Int
+){
+    while (TR < tempo) {
+        processarSimulacao(tabelaTEC, tabelaTS, limiteFila)
+    }
+    calcularImprimirEstatisticas()
+}
+
+//processamento geral
+private fun processarSimulacao(
+    tabelaTEC: MutableList<DF>,
+    tabelaTS: MutableList<DF>
 ) {
     if (HC < HS) {
         evento = "CHEGADA"
@@ -71,7 +93,32 @@ fun processarSimulacao(
             HS
         )
     )
+}
 
+private fun processarSimulacao(
+    tabelaTEC: MutableList<DF>,
+    tabelaTS: MutableList<DF>,
+    limiteFila: Int
+) {
+    if (HC < HS && TF <= limiteFila) {
+        evento = "CHEGADA"
+        processarEventoChegada(tabelaTEC, tabelaTS)
+    } else {
+        evento = "SAIDA"
+        processarEventoSaida(tabelaTS)
+    }
+    //guardar estado atual para atualização das estatisticas
+    tabelaSimulacao.add(
+        Simulacao(
+            evento,
+            cliente,
+            TR,
+            ES,
+            TF,
+            HC,
+            HS
+        )
+    )
 }
 
 //Calculo e Impressao dos valores gerados
@@ -91,26 +138,26 @@ fun calcularImprimirEstatisticas() {
     println("Tempo Médio no Sistema: \t" + tempoMediaNoSistema.toString())
 }
 
-fun calculaTempoMedioNoSistema(): Double {
+private fun calculaTempoMedioNoSistema(): Double {
     TODO("Not yet implemented")
 }
 
-fun calculaTempoMedioDeUmaEntidadeNaFila(): Double {
+private fun calculaTempoMedioDeUmaEntidadeNaFila(): Double {
     TODO("Not yet implemented")
 }
 
-fun calculaTaxaMediaDeUmaEntidadeNaFila(): Double {
+private fun calculaTaxaMediaDeUmaEntidadeNaFila(): Double {
     TODO("Not yet implemented")
 }
 
-fun calculaNumeroMedioDeEntidadesNaFila(): Double {
+private fun calculaNumeroMedioDeEntidadesNaFila(): Double {
     TODO("Not yet implemented")
 }
 
 
 // Algoritmo para processar um evento de saída
 
-fun processarEventoSaida(
+private fun processarEventoSaida(
     tabelaTS: MutableList<DF>
 ) {
     //Atualizar relógio para o horário da próxima saída
@@ -136,7 +183,7 @@ fun processarEventoSaida(
 
 // Algoritmo para processar um evento de chegada
 
-fun processarEventoChegada(
+private fun processarEventoChegada(
     tabelaTEC: MutableList<DF>,
     tabelaTS: MutableList<DF>,
 ) {
@@ -163,6 +210,3 @@ fun processarEventoChegada(
     //Agendar a próxima chegada
     HC = TR + TEC
 }
-
-//imprimir simulação
-

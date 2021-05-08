@@ -55,12 +55,70 @@ fun menu(): Int {
                 simulacaoFeita = false
             }
             3 -> {
+                if(TEC != null && TS != null){
+                    var maxCliente = 0
+                    do {
+                        println("Digite a quantidade MAXIMA de clientes para a simulação: (valor > 0)")
+                        maxCliente = readLine()!!.toIntOrNull()!!
+                    }while (maxCliente == null || maxCliente < 1)
+                    processarSimulacaoPorCliente(TEC!!, TS!!,maxCliente)
 
+                }else{
+                    println("É preciso ter passado pelas opções 1 e 2 antes...\n")
+                }
             }
             4 -> {
+                if(TEC != null && TS != null){
+                    var maxTempo = 0.0
+                    do {
+                        println("Digite o tempo limite em minutos para a simulação: (valor > 0)")
+                        maxTempo = readLine()!!.toDoubleOrNull()!!
+                    }while (maxTempo == null || maxTempo < 1)
+                    processarSimulacaoPorTempo(TEC!!, TS!!,maxTempo)
 
+                }else{
+                    println("É preciso ter passado pelas opções 1 e 2 antes...\n")
+                }
             }
             5 -> {
+                if(TEC != null && TS != null){
+                    var maxCliente = 0
+                    var limiteFila = 0
+                    do {
+                        println("Digite a quantidade MAXIMA de clientes para a simulação: (valor > 0)")
+                        maxCliente = readLine()!!.toIntOrNull()!!
+                    }while (maxCliente == null || maxCliente < 1)
+
+                    do {
+                        println("Digite o limite da fila para a simulação: (valor > 0)")
+                        limiteFila = readLine()!!.toIntOrNull()!!
+                    }while (limiteFila == null || limiteFila < 1)
+                    processarSimulacaoPorCliente(TEC!!, TS!!, maxCliente, limiteFila)
+
+                }else{
+                    println("É preciso ter passado pelas opções 1 e 2 antes...\n")
+                }
+            }
+            6 -> {
+                if(TEC != null && TS != null){
+                    var maxTempo = 0.0
+                    var limiteFila = 0
+                    do {
+                        println("Digite a quantidade MAXIMA de clientes para a simulação: (valor > 0)")
+                        maxTempo = readLine()!!.toDoubleOrNull()!!
+                    }while (maxTempo == null || maxTempo < 1)
+
+                    do {
+                        println("Digite o limite da fila para a simulação: (valor > 0)")
+                        limiteFila = readLine()!!.toIntOrNull()!!
+                    }while (limiteFila == null || limiteFila < 1)
+                    processarSimulacaoPorTempo(TEC!!, TS!!, maxTempo, limiteFila)
+
+                }else{
+                    println("É preciso ter passado pelas opções 1 e 2 antes...\n")
+                }
+            }
+            7 -> {
                 if(simulacaoFeita){
                     tabelaSimulacao.mostrarSimulacao()
                 }else{
@@ -70,7 +128,7 @@ fun menu(): Int {
                             "Depois do uso dessas opções nesta sequência haverão dados para serem mostrados...\n")
                 }
             }
-            6 -> {
+            8 -> {
                 if(simulacaoFeita){
                     calcularImprimirEstatisticas()
                 }else{
@@ -80,14 +138,14 @@ fun menu(): Int {
                             "Depois do uso dessas opções nesta sequência haverão dados para serem mostrados...\n")
                 }
             }
-            7 -> {
+            9 -> {
                 if (TEC != null) {
                     TEC!!.imprimeTabela()
                 } else {
                     println("É preciso ter passado pela opção 1 antes...\n")
                 }
             }
-            8 -> {
+            10 -> {
                 if (TS != null) {
                     TS!!.imprimeTabela()
                 } else {
@@ -109,12 +167,14 @@ fun showOptions() {
     println("Modelo de fila M/M/1")
     println("1 - Inserir base de dados TEC")
     println("2 - Inserir base de dados TS")
-    println("3 - Simular sistema (fila infinita)")
-    println("4 - Simular sistema (fila limitada)")
-    println("5 - Imprimir simulação do sistema")
-    println("6 - Ver relatório estatístico")
-    println("7 - Ver tabela TEC (Tempo entre chegadas)")
-    println("8 - Ver tabela TS (Tempo serviço)")
+    println("3 - Simular sistema /parada: qtd max clientes (fila infinita)")
+    println("4 - Simular sistema /parada: tempo (fila infinita)")
+    println("5 - Simular sistema /parada: qtd max clientes (fila limitada)")
+    println("6 - Simular sistema /parada: tempo (fila limitada)")
+    println("7 - Imprimir simulação do sistema")
+    println("8 - Ver relatório estatístico")
+    println("9 - Ver tabela TEC (Tempo entre chegadas)")
+    println("10 - Ver tabela TS (Tempo serviço)")
     println("0 - Sair\n")
     print("Digite a opção desejada: ")
 
